@@ -2,6 +2,7 @@ from linguagem import LinguagemInstrucoes
 from gerenciador_processo import GerenciadorDeProcessos
 from escalonador import Escalonador
 from vm import VirtualMachine
+from simulador import Simulador
 from instrucoes import add, sub, mul, div, jmp, jz, jnz, read, write, load, store, end
 
 # Inicializando a linguagem e o gerenciador
@@ -48,4 +49,7 @@ processo2 = gerenciador_processos.criar_processo(len(memoria_alocada2), instruco
 escalonador.adicionar_processo(processo1)
 escalonador.adicionar_processo(processo2)
 
+simulador = Simulador(gerenciador_processos, escalonador, vm)
+simulador.menu()
 vm.executar(gerenciador_processos)
+# Inicializando o simulador
