@@ -36,9 +36,15 @@ def jnz(processo, address):
     print(f"JNZ {address} -> PC = {processo.pc + 1} (Zero flag: {not processo.zero_flag})")
 
 def read(processo, rx):
-    processo.set_bloqueado()  
-    processo.registros[rx] = int(input(f"Processo {processo.pid} - Enter value for R{rx}: "))
+    processo.set_bloqueado()
+    try:
+        processo.registros[rx] = int(input(f"Processo {processo.pid} - Enter value for R{rx}: "))
+    except ValueError:
+        print("Entrada inválida, usando 0 como valor padrão.")
+        processo.registros[rx] = 0
     print(f"READ -> R{rx} = {processo.registros[rx]}")
+    processo.set_pronto()  # Desbloqueia o processo após a leitura
+
     
 
 def write(processo, rx):
