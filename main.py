@@ -1,9 +1,10 @@
 from linguagem import LinguagemInstrucoes
 from gerenciador_processo import GerenciadorDeProcessos
+from escalonador import Escalonador
 from vm import VirtualMachine
-from instrucoes import add, sub, mul, div, jmp, jz, jnz, read, write, load, store
+from instrucoes import add, sub, mul, div, jmp, jz, jnz, read, write, load, store, end
 
-# Criando e configurando a linguagem de instruções
+# Inicializando a linguagem e o gerenciador
 linguagem = LinguagemInstrucoes()
 linguagem.adicionar_instrucao('ADD', add)
 linguagem.adicionar_instrucao('SUB', sub)
@@ -16,22 +17,35 @@ linguagem.adicionar_instrucao('READ', read)
 linguagem.adicionar_instrucao('WRITE', write)
 linguagem.adicionar_instrucao('LOAD', load)
 linguagem.adicionar_instrucao('STORE', store)
+linguagem.adicionar_instrucao('END', end)
 
-# Inicializando o gerenciador de processos e a máquina virtual
 gerenciador_processos = GerenciadorDeProcessos()
-vm = VirtualMachine(gerenciador_processos)
+quantum = 2
+escalonador = Escalonador(quantum)
+vm = VirtualMachine(escalonador)
 
-# Criando um processo com algumas instruções exemplo
-instrucoes = [
-    "LOAD R0, 0",  # Carrega valor da memória para o registrador R0
-    "READ R1",     # Lê um valor para o registrador R1
-    "ADD R0, R1",  # Adiciona R1 a R0
-    "WRITE R0",    # Escreve valor de R0
-    "JMP 1"        # Salta para a instrução 1
+instrucoes1 = [
+    "LOAD R0, 0",
+    "READ R1",
+    "ADD R0, R1",
+    "WRITE R0",
+    "END"
 ]
-memoria_alocada = [10, 20, 30]
 
-processo = gerenciador_processos.criar_processo(len(memoria_alocada), instrucoes, linguagem)
+instrucoes2 = [
+    "READ R2",
+    "MUL R2, R2",
+    "WRITE R2",
+    "END"
+]
 
-# Executando o processo
-vm.execute_process(processo.pid)
+memoria_alocada1 = [10, 20, 30]
+memoria_alocada2 = [5, 10, 15]
+
+processo1 = gerenciador_processos.criar_processo(len(memoria_alocada1), instrucoes1, linguagem)
+processo2 = gerenciador_processos.criar_processo(len(memoria_alocada2), instrucoes2, linguagem)
+
+escalonador.adicionar_processo(processo1)
+escalonador.adicionar_processo(processo2)
+
+vm.executar(gerenciador_processos)

@@ -51,3 +51,7 @@ def load(processo, rx, address):
 def store(processo, rx, address):
     processo.memoria_alocada[address] = processo.registros[rx]
     print(f"STORE R{rx}, {address} -> MEM[{address}] = {processo.memoria_alocada[address]}")
+
+def end(processo):
+    processo.set_terminado()
+    print(f"Processo {processo.pid} foi finalizado por END")

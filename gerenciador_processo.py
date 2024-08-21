@@ -2,7 +2,7 @@ from processo import Processo
 
 class GerenciadorDeProcessos:
     def __init__(self):
-        self.processos = {}
+        self.processos = {}  # Dicionário para armazenar processos
         self.pid_counter = 1
     
     def criar_processo(self, memoria_alocada, instrucoes, linguagem):
@@ -35,7 +35,6 @@ class GerenciadorDeProcessos:
             if processo.estado == 'terminado':
                 self.finalizar_processo(pid)
             if processo.estado == 'bloqueado':
-                # Tentativa de desbloquear processos bloqueados
                 self.desbloquear_processo(pid)
     
     def desbloquear_processo(self, pid):
