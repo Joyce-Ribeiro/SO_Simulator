@@ -17,6 +17,10 @@ class Simulador:
         for processo in self.escalonador.processos:
             print(processo)  # Exibe a representação textual de cada processo na fila
 
+    def mostrar_memoria_alocada(self, processo):
+        print(f"\nMemória Alocada: {len(processo.memoria_alocada)}")
+        
+
     def mostrar_instrucao(self, processo):
         # Exibe as instruções de um processo específico
         print(f"\nInstruções do Processo {processo.pid}:")
@@ -44,7 +48,8 @@ class Simulador:
             print("2. Mostrar Fila de Processos")
             print("3. Mostrar Instruções de um Processo")
             print("4. Iniciar Execução dos Processos")
-            print("5. Sair")
+            print("5. Informar Memória Alocada")
+            print("6. Sair")
 
             # Solicita ao usuário que escolha uma opção do menu
             escolha = input("Escolha uma opção: ")
@@ -70,7 +75,16 @@ class Simulador:
                 self.iniciar_execucao()
                 print("Execução concluída.")
             elif escolha == '5':
+                pid = int(input("Digite o PID do processo: "))
+                processo = self.gerenciador_processos.processos.get(pid)
+                if processo:
+                    print(processo)
+                    self.mostrar_memoria_alocada(processo)
+                else:
+                    print(f"Processo com PID {pid} não encontrado.")
+            elif escolha == '6':
                 # Encerra o simulador
+                exit()
                 break
             else:
                 # Informa que a opção escolhida é inválida
