@@ -18,6 +18,7 @@ class Simulador:
             print(processo)  # Exibe a representação textual de cada processo na fila
 
     def mostrar_memoria_alocada(self, processo):
+        # Exibe a quantidade de memória alcada para o processo informado
         print(f"\nMemória Alocada: {len(processo.memoria_alocada)}")
         
 
@@ -75,12 +76,14 @@ class Simulador:
                 self.iniciar_execucao()
                 print("Execução concluída.")
             elif escolha == '5':
+                # Solicita o PID de um processo para exibir a quantidade de memória alocada
                 pid = int(input("Digite o PID do processo: "))
                 processo = self.gerenciador_processos.processos.get(pid)
                 if processo:
-                    print(processo)
+                    # Exibe a memória alocada
                     self.mostrar_memoria_alocada(processo)
                 else:
+                    # Informa se o processo não foi encontrado
                     print(f"Processo com PID {pid} não encontrado.")
             elif escolha == '6':
                 # Encerra o simulador
