@@ -5,7 +5,7 @@ class Processo:
         self.estado = 'pronto'  # Estado inicial do processo (pronto para ser executado)
         self.pc = 0  # Contador de programa (indica a posição atual da instrução a ser executada)
         self.registros = [0] * 8  # Inicializa 8 registradores com valor 0
-        self.memoria_alocada = [0] * memoria_alocada  # Memória alocada para o processo
+        self.memoria_alocada = [[0] * memoria for memoria in memoria_alocada]  # Memória alocada para o processo
         self.instrucoes = instrucoes  # Lista de instruções do processo
         self.zero_flag = False  # Flag de condição zero
         self.linguagem = linguagem  # Referência à linguagem de instruções usada pelo processo
