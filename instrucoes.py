@@ -76,9 +76,9 @@ def write(processo, rx):
 
 def load(processo, rx, address):
     # Carrega o valor da memória no endereço especificado para o registrador rx
-    processo.registros[rx] = processo.memoria_alocada[address]
+    processo.registros[rx] = processo.memoria_alocada[address][0]
     # Exibe a operação realizada e o valor carregado
-    print(f"LOAD R{rx}, {address} -> R{rx} = {processo.registros[rx]}")
+    print(f"LOAD R{rx}, {address} -> R{rx} = {rx}")
 
 def store(processo, rx, address):
     # Armazena o valor do registrador rx na memória no endereço especificado
